@@ -1,0 +1,46 @@
+
+# Maven build output
+target/
+!**/src/main/**/target/
+!**/src/test/**/target/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+dist/
+
+# Maven wrapper
+.mvn/wrapper/maven-wrapper.jar
+
+# IDE files
+.apt_generated/
+.classpath
+.factorypath
+.project
+.settings/
+.springBeans
+.sts4-cache/
+.idea/
+*.iws
+*.iml
+*.ipr
+.nb-gradle/
+.vscode/
+nbproject/private/
+nbbuild/
+nbdist/
+
+# Local configuration and database credentials
+/src/main/resources/application.properties
+/src/main/resources/application-local.properties
+application-*.properties
+!src/main/resources/application-example.properties
+**/db.properties
+
+# Environment files and secrets
+.env
+.env.*
+*.env
+secrets/
+
+# Local backup files
+*.backup

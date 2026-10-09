@@ -1,0 +1,302 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | FitCart Fitness</title>
+    <link rel="stylesheet" href="/style.css">
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            margin: 0;
+            background:
+                radial-gradient(ellipse at top left, #173b42 0%, transparent 45%),
+                #0f172a;
+            font-family: Arial, sans-serif;
+        }
+
+        .login-layout {
+            width: 100%;
+            max-width: 1000px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            overflow: hidden;
+            border: 1px solid #334155;
+            border-radius: 20px;
+            background: #1e293b;
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.35);
+        }
+
+        .login-brand {
+            padding: 55px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: linear-gradient(145deg, #102c36, #0f172a);
+        }
+
+        .brand-name {
+            color: #10b981;
+            font-size: 2rem;
+            font-weight: 800;
+        }
+
+        .brand-name span {
+            color: #f8fafc;
+        }
+
+        .brand-heading {
+            color: #f8fafc;
+            margin-top: 35px;
+            line-height: 1.4;
+        }
+
+        .brand-description {
+            color: #94a3b8;
+            line-height: 1.8;
+            margin-top: 12px;
+        }
+
+        .features {
+            margin-top: 28px;
+            color: #e2e8f0;
+            line-height: 2.4;
+        }
+
+        .login-panel {
+            padding: 50px 40px;
+        }
+
+        .login-panel h1 {
+            color: #f8fafc;
+            margin: 0 0 10px;
+        }
+
+        .subtitle {
+            color: #94a3b8;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #e2e8f0;
+            margin-bottom: 9px;
+            font-size: 0.95rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #334155;
+            border-radius: 10px;
+            background: #0f172a;
+            color: #f8fafc;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .form-group input:focus {
+            border-color: #10b981;
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.12);
+        }
+
+        .login-button {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            background: #10b981;
+            color: #06251b;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .login-button:hover {
+            background: #059669;
+            color: #ffffff;
+        }
+
+        .login-button:disabled {
+            opacity: 0.65;
+            cursor: not-allowed;
+        }
+
+        .message {
+            display: none;
+            margin-bottom: 18px;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .message.error {
+            display: block;
+            color: #fecaca;
+            background: #451a1a;
+            border: 1px solid #7f1d1d;
+        }
+
+        .message.success {
+            display: block;
+            color: #a7f3d0;
+            background: #064e3b;
+            border: 1px solid #065f46;
+        }
+
+        .login-footer {
+            margin-top: 26px;
+            text-align: center;
+            color: #94a3b8;
+            font-size: 0.85rem;
+            line-height: 1.7;
+        }
+
+        @media (max-width: 700px) {
+            .login-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .login-brand {
+                padding: 30px;
+            }
+
+            .brand-heading {
+                margin-top: 20px;
+            }
+
+            .features {
+                display: none;
+            }
+
+            .login-panel {
+                padding: 35px 25px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="login-layout">
+
+        <section class="login-brand">
+            <div class="brand-name">⚡ FitCart <span>Fitness</span></div>
+
+            <h2 class="brand-heading">
+                Your fitness journey starts here.
+            </h2>
+
+            <p class="brand-description">
+                Discover fitness essentials, manage your orders,
+                and shop for your next personal best.
+            </p>
+
+            <div class="features">
+                ✓ Fitness products in one place<br>
+                ✓ Easy shopping and order tracking<br>
+                ✓ A marketplace built for fitness
+            </div>
+        </section>
+
+        <section class="login-panel">
+            <h1>Welcome back</h1>
+            <p class="subtitle">
+                Sign in to your FitCart account.
+            </p>
+
+            <div id="message" class="message" role="alert"
+                 aria-live="polite"></div>
+
+            <form id="loginForm" method="post" action="/login">
+                <input type="hidden" name="_csrf" id="csrfToken">
+
+                <div class="form-group">
+                    <label for="email">Email address</label>
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="you@example.com"
+                        autocomplete="username"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Enter your password"
+                        autocomplete="current-password"
+                        required
+                    >
+                </div>
+
+                <button class="login-button" type="submit" id="loginButton">
+                    Sign In
+                </button>
+            </form>
+
+            <div class="login-footer">
+                Secure sign-in to FitCart Fitness Marketplace.
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", async () => {
+            const message = document.getElementById("message");
+            const button = document.getElementById("loginButton");
+            const params = new URLSearchParams(window.location.search);
+
+            if (params.has("error")) {
+                message.className = "message error";
+                message.textContent =
+                    "Login failed. Check your email and password.";
+            } else if (params.has("logout")) {
+                message.className = "message success";
+                message.textContent = "You have been logged out.";
+            }
+
+            try {
+                const response = await fetch("/csrf", {
+                    credentials: "same-origin"
+                });
+
+                if (!response.ok) {
+                    throw new Error("CSRF request failed");
+                }
+
+                const data = await response.json();
+
+                document.getElementById("csrfToken").value = data.token;
+            } catch (error) {
+                button.disabled = true;
+                message.className = "message error";
+                message.textContent =
+                    "Unable to initialize secure login. Please refresh the page.";
+            }
+        });
+    </script>
+</body>
+</html>
