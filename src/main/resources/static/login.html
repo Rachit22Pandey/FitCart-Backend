@@ -2,285 +2,815 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="icon" type="image/svg+xml" href="/fitcart-logo.svg">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login | FitCart Fitness</title>
+    <meta name="theme-color" content="#090c09">
+    <meta name="description" content="Sign in to FitCart — your fitness shopping destination.">
+    <title>Sign In | FitCart</title>
+    <link rel="icon" type="image/svg+xml" href="/fitcart-logo.svg">
     <link rel="stylesheet" href="/style.css">
 
     <style>
+        
+/* ===== FITCART LOGIN FINAL POLISH ===== */
+
+/* Keep the brand header consistent with the page */
+.login-header {
+    background: #090c09 !important;
+    border-bottom: 1px solid #293129;
+}
+
+/* Keep browser-autofilled fields dark */
+.login-form-group input:-webkit-autofill,
+.login-form-group input:-webkit-autofill:hover,
+.login-form-group input:-webkit-autofill:focus,
+.login-form-group input:-webkit-autofill:active {
+    -webkit-box-shadow: inset 0 0 0 1000px #0a0e0a !important;
+    -webkit-text-fill-color: #f4f7f0 !important;
+    caret-color: #c8f169;
+    transition: background-color 999999s ease-out;
+}
+
+/* Consistent input appearance */
+.login-form-group input {
+    color-scheme: dark;
+    background-color: #0a0e0a;
+}
+
+/* Clear keyboard focus */
+.login-form-group input:focus-visible,
+.login-password-toggle:focus-visible,
+.login-button:focus-visible {
+    outline: 2px solid #c8f169;
+    outline-offset: 3px;
+}
+
+        :root {
+            --login-lime: #c8f169;
+            --login-bg: #090c09;
+            --login-card: #141914;
+            --login-border: #303a2e;
+            --login-muted: #a1aba0;
+            --login-white: #f4f7f0;
+        }
+
         * {
             box-sizing: border-box;
         }
 
-        body {
+        body.login-page {
             min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 24px;
             margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
             background:
-                radial-gradient(ellipse at top left, #173b42 0%, transparent 45%),
-                #0f172a;
-            font-family: Arial, sans-serif;
+                radial-gradient(ellipse at 5% 5%, #c8f1690c, transparent 35%),
+                var(--login-bg);
+            color: var(--login-white);
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .login-topbar {
+            min-height: 35px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 9px 16px;
+            background: var(--login-lime);
+            color: #11150c;
+            font-size: 10px;
+            font-weight: 950;
+            letter-spacing: 2px;
+            text-align: center;
+        }
+
+        .login-header {
+            width: 100%;
+            padding: 20px 5%;
+            border-bottom: 1px solid #293129;
+        }
+
+        .login-brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 11px;
+            color: inherit;
+            text-decoration: none;
+        }
+        .login-brand-mark {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            filter: drop-shadow(0 5px 12px #c8f16918);
+        }
+
+        .login-brand-name {
+            font-size: 21px;
+            font-weight: 950;
+            letter-spacing: 2px;
+        }
+
+        .login-brand-tagline {
+            margin-top: 4px;
+            color: var(--login-muted);
+            font-size: 9px;
+            font-weight: 900;
+            letter-spacing: 1.3px;
+        }
+
+        .login-main {
+            flex: 1;
+            display: grid;
+            place-items: center;
+            padding: 38px 24px 50px;
         }
 
         .login-layout {
             width: 100%;
-            max-width: 1000px;
+            max-width: 1120px;
+            min-height: 570px;
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1.08fr .92fr;
             overflow: hidden;
-            border: 1px solid #334155;
-            border-radius: 20px;
-            background: #1e293b;
-            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.35);
+            border: 1px solid #35412f;
+            border-radius: 24px;
+            background: var(--login-card);
+            box-shadow: 0 30px 90px #0006;
+            animation: loginReveal .55s ease both;
         }
 
-        .login-brand {
-            padding: 55px 40px;
+        @keyframes loginReveal {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Left brand panel */
+
+        .login-showcase {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-width: 0;
+            padding: clamp(30px, 5vw, 58px);
+            overflow: hidden;
+            isolation: isolate;
+            background:
+                radial-gradient(ellipse at 82% 42%, #c8f16920, transparent 34%),
+                linear-gradient(145deg, #1b2718, #101510 63%, #182116);
+        }
+
+        .login-showcase::before {
+            content: "";
+            position: absolute;
+            z-index: -1;
+            width: 330px;
+            height: 330px;
+            top: 26%;
+            right: -90px;
+            border: 1px solid #c8f1692c;
+            border-radius: 50%;
+            box-shadow:
+                0 0 0 25px #c8f16907,
+                0 0 0 55px #c8f16905;
+        }
+
+        .login-showcase::after {
+            content: "";
+            position: absolute;
+            z-index: -1;
+            width: 230px;
+            height: 230px;
+            top: 36%;
+            right: -35px;
+            border: 1px solid #c8f16925;
+            border-radius: 35%;
+            transform: rotate(30deg);
+        }
+
+        .login-eyebrow {
+            color: var(--login-lime);
+            font-size: 10px;
+            font-weight: 950;
+            letter-spacing: 2.5px;
+        }
+
+        .login-showcase h1 {
+            max-width: 570px;
+            margin: 35px 0 18px;
+            color: var(--login-white);
+            font-size: clamp(40px, 5.2vw, 65px);
+            font-weight: 950;
+            line-height: .99;
+            letter-spacing: -2.5px;
+        }
+
+        .login-showcase h1 span {
+            display: block;
+            color: var(--login-lime);
+            margin-top: 7px;
+        }
+
+        .login-showcase-description {
+            max-width: 410px;
+            color: #acb7a7;
+            font-size: 14px;
+            line-height: 1.9;
+        }
+
+        .login-visual {
+            position: relative;
+            width: min(100%, 350px);
+            min-height: 155px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px auto 25px;
+        }
+
+        .login-visual-ring {
+            position: absolute;
+            width: 170px;
+            height: 170px;
+            border: 1px solid #c8f16946;
+            border-radius: 50%;
+        }
+
+        .login-athlete-card {
+            position: relative;
+            width: 155px;
+            height: 155px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            border: 1px solid #c8f16948;
+            border-radius: 26px;
+            background: linear-gradient(145deg, #25321f, #111610);
+            box-shadow: 0 24px 65px #0007;
+            transform: rotate(-5deg);
+            transition: transform .25s ease, border-color .25s ease;
+        }
+
+        .login-athlete-card:hover {
+            transform: rotate(0deg) scale(1.04);
+            border-color: var(--login-lime);
+        }
+
+        .login-athlete-icon {
+            font-size: 60px;
+            line-height: 1.2;
+            filter: drop-shadow(0 9px 13px #0008);
+        }
+
+        .login-athlete-label {
+            color: var(--login-lime);
+            font-size: 9px;
+            font-weight: 950;
+            letter-spacing: 1.7px;
+        }
+
+        .login-floating-label {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            padding: 13px 15px;
+            border-radius: 12px;
+            background: var(--login-lime);
+            color: #11150c;
+            font-size: 9px;
+            font-weight: 950;
+            letter-spacing: 1.3px;
+            transform: rotate(4deg);
+        }
+
+        .login-feature-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 9px;
+            margin-top: 14px;
+        }
+
+        .login-feature {
+            padding: 9px 12px;
+            border: 1px solid #3a4933;
+            border-radius: 999px;
+            color: #d8e2d1;
+            font-size: 11px;
+            font-weight: 700;
+            background: #10151085;
+        }
+
+        .login-showcase-footer {
+            margin-top: 30px;
+            color: #83907e;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+        }
+
+        /* Right sign-in panel */
+
+        .login-panel {
             display: flex;
             flex-direction: column;
             justify-content: center;
-            background: linear-gradient(145deg, #102c36, #0f172a);
+            min-width: 0;
+            padding: clamp(30px, 4.5vw, 55px);
+            background:
+                radial-gradient(ellipse at 100% 0%, #c8f16909, transparent 40%),
+                #121712;
         }
 
-        .brand-name {
-            color: #10b981;
-            font-size: 2rem;
-            font-weight: 800;
+        .login-panel-kicker {
+            margin-bottom: 13px;
+            color: var(--login-lime);
+            font-size: 10px;
+            font-weight: 950;
+            letter-spacing: 2px;
         }
 
-        .brand-name span {
-            color: #f8fafc;
+        .login-panel h2 {
+            margin: 0;
+            color: var(--login-white);
+            font-size: clamp(28px, 3vw, 37px);
+            font-weight: 950;
+            letter-spacing: -1px;
         }
 
-        .brand-heading {
-            color: #f8fafc;
-            margin-top: 35px;
-            line-height: 1.4;
-        }
-
-        .brand-description {
-            color: #94a3b8;
+        .login-subtitle {
+            margin: 12px 0 28px;
+            color: var(--login-muted);
+            font-size: 13px;
             line-height: 1.8;
-            margin-top: 12px;
         }
 
-        .features {
-            margin-top: 28px;
-            color: #e2e8f0;
-            line-height: 2.4;
+        .login-divider {
+            height: 1px;
+            margin-bottom: 25px;
+            background: linear-gradient(90deg, #46533c, transparent);
         }
 
-        .login-panel {
-            padding: 50px 40px;
-        }
-
-        .login-panel h1 {
-            color: #f8fafc;
-            margin: 0 0 10px;
-        }
-
-        .subtitle {
-            color: #94a3b8;
-            margin-bottom: 30px;
+        .login-message {
+            display: none;
+            margin-bottom: 18px;
+            padding: 12px 14px;
+            border-radius: 10px;
+            font-size: 12px;
             line-height: 1.6;
         }
 
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            color: #e2e8f0;
-            margin-bottom: 9px;
-            font-size: 0.95rem;
-        }
-
-        .form-group input {
-            width: 100%;
-            padding: 14px;
-            border: 1px solid #334155;
-            border-radius: 10px;
-            background: #0f172a;
-            color: #f8fafc;
-            font-size: 1rem;
-            outline: none;
-        }
-
-        .form-group input:focus {
-            border-color: #10b981;
-            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.12);
-        }
-
-        .login-button {
-            width: 100%;
-            padding: 14px;
-            border: none;
-            border-radius: 10px;
-            background: #10b981;
-            color: #06251b;
-            font-size: 1rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: background 0.2s ease;
-        }
-
-        .login-button:hover {
-            background: #059669;
-            color: #ffffff;
-        }
-
-        .login-button:disabled {
-            opacity: 0.65;
-            cursor: not-allowed;
-        }
-
-        .message {
-            display: none;
-            margin-bottom: 18px;
-            padding: 12px;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            line-height: 1.5;
-        }
-
-        .message.error {
+        .login-message.error {
             display: block;
             color: #fecaca;
             background: #451a1a;
             border: 1px solid #7f1d1d;
         }
 
-        .message.success {
+        .login-message.success {
             display: block;
-            color: #a7f3d0;
-            background: #064e3b;
-            border: 1px solid #065f46;
+            color: #d9f99d;
+            background: #172515;
+            border: 1px solid #465b33;
         }
 
-        .login-footer {
-            margin-top: 26px;
-            text-align: center;
-            color: #94a3b8;
-            font-size: 0.85rem;
+        .login-form-group {
+            margin-bottom: 20px;
+        }
+
+        .login-form-group label {
+            display: block;
+            margin-bottom: 9px;
+            color: #e0e8db;
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+        .login-input-wrap {
+            position: relative;
+        }
+
+        .login-form-group input {
+            width: 100%;
+            min-height: 49px;
+            padding: 13px 14px;
+            border: 1px solid #344032;
+            border-radius: 11px;
+            outline: none;
+            background: #0a0e0a;
+            color: var(--login-white);
+            font-family: inherit;
+            font-size: 14px;
+            transition: border-color .2s ease, box-shadow .2s ease;
+        }
+
+        .login-form-group input::placeholder {
+            color: #737e6f;
+        }
+
+        .login-form-group input:focus {
+            border-color: var(--login-lime);
+            box-shadow: 0 0 0 3px #c8f16917;
+        }
+
+        .login-password-input {
+            padding-right: 68px !important;
+        }
+
+        .login-password-toggle {
+            position: absolute;
+            top: 50%;
+            right: 11px;
+            transform: translateY(-50%);
+            padding: 6px 7px;
+            border: 0;
+            border-radius: 6px;
+            background: transparent;
+            color: var(--login-lime);
+            font-size: 10px;
+            font-weight: 900;
+            cursor: pointer;
+        }
+
+        .login-password-toggle:hover {
+            background: #c8f16912;
+        }
+
+        .login-button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+            min-height: 49px;
+            margin-top: 7px;
+            padding: 13px 18px;
+            border: 1px solid var(--login-lime);
+            border-radius: 999px;
+            background: var(--login-lime);
+            color: #11150c;
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: 950;
+            cursor: pointer;
+            transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+        }
+
+        .login-button:hover:not(:disabled) {
+            transform: translateY(-2px);
+            background: #d3f68b;
+            box-shadow: 0 9px 25px #c8f16925;
+        }
+
+        .login-button:disabled {
+            opacity: .6;
+            cursor: not-allowed;
+        }
+
+        .login-button-arrow {
+            font-size: 17px;
+            line-height: 1;
+        }
+
+        .login-security-note {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 19px;
+            color: #8e9989;
+            font-size: 10px;
             line-height: 1.7;
+            text-align: center;
         }
 
-        @media (max-width: 700px) {
+        .login-security-note span {
+            color: var(--login-lime);
+        }
+
+        .login-bottom {
+            margin-top: 35px;
+            padding-top: 18px;
+            border-top: 1px solid #293129;
+            color: #818b7c;
+            font-size: 10px;
+            line-height: 1.8;
+            text-align: center;
+        }
+
+        .login-bottom strong {
+            color: #c8f169;
+        }
+
+        @media (max-width: 850px) {
+            .login-main {
+                padding: 25px 16px 35px;
+            }
+
             .login-layout {
+                max-width: 560px;
                 grid-template-columns: 1fr;
             }
 
-            .login-brand {
+            .login-showcase {
                 padding: 30px;
             }
 
-            .brand-heading {
-                margin-top: 20px;
+            .login-showcase h1 {
+                margin-top: 24px;
+                font-size: clamp(39px, 8vw, 54px);
             }
 
-            .features {
-                display: none;
+            .login-visual {
+                min-height: 140px;
+                margin: 18px auto;
+            }
+
+            .login-visual-ring {
+                width: 140px;
+                height: 140px;
+            }
+
+            .login-athlete-card {
+                width: 130px;
+                height: 130px;
+            }
+
+            .login-athlete-icon {
+                font-size: 49px;
+            }
+
+            .login-showcase-footer {
+                margin-top: 15px;
             }
 
             .login-panel {
-                padding: 35px 25px;
+                padding: 35px 30px;
+            }
+        }
+
+        @media (max-width: 420px) {
+            .login-topbar {
+                font-size: 8px;
+                letter-spacing: 1.2px;
+            }
+
+            .login-showcase,
+            .login-panel {
+                padding: 25px 21px;
+            }
+
+            .login-showcase h1 {
+                font-size: 39px;
+                letter-spacing: -1.5px;
+            }
+
+            .login-floating-label {
+                right: -2px;
+                font-size: 8px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation: none !important;
+                transition: none !important;
             }
         }
     </style>
 </head>
 
-<body>
-    <div class="login-layout">
+<body class="login-page">
 
-        <section class="login-brand">
-            <div class="brand-name">⚡ FitCart <span>Fitness</span></div>
-
-            <h2 class="brand-heading">
-                Your fitness journey starts here.
-            </h2>
-
-            <p class="brand-description">
-                Discover fitness essentials, manage your orders,
-                and shop for your next personal best.
-            </p>
-
-            <div class="features">
-                ✓ Fitness products in one place<br>
-                ✓ Easy shopping and order tracking<br>
-                ✓ A marketplace built for fitness
-            </div>
-        </section>
-
-        <section class="login-panel">
-            <h1>Welcome back</h1>
-            <p class="subtitle">
-                Sign in to your FitCart account.
-            </p>
-
-            <div id="message" class="message" role="alert"
-                 aria-live="polite"></div>
-
-            <form id="loginForm" method="post" action="/login">
-                <input type="hidden" name="_csrf" id="csrfToken">
-
-                <div class="form-group">
-                    <label for="email">Email address</label>
-                    <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        placeholder="you@example.com"
-                        autocomplete="username"
-                        required
-                    >
-                </div>
-
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input
-                        type="password"
-                        id="password"
-                        name="password"
-                        placeholder="Enter your password"
-                        autocomplete="current-password"
-                        required
-                    >
-                </div>
-
-                <button class="login-button" type="submit" id="loginButton">
-                    Sign In
-                </button>
-            </form>
-
-            <div class="login-footer">
-                Secure sign-in to FitCart Fitness Marketplace.
-            </div>
-        </section>
-
+    <div class="login-topbar">
+        EQUIP YOUR AMBITION · TRAIN HARD · SHOP SMART
     </div>
+
+    <header class="login-header">
+        <a href="/login.html" class="login-brand" aria-label="FitCart sign-in">
+            <svg
+    class="login-brand-mark"
+    viewBox="0 0 200 200"
+    role="img"
+    aria-label="FitCart logo"
+    xmlns="http://www.w3.org/2000/svg">
+
+    <rect width="200" height="200" rx="42" fill="#101410"/>
+
+    <g fill="#c8f169">
+        <rect x="48" y="75" width="15" height="50" rx="5"/>
+        <rect x="31" y="65" width="12" height="70" rx="4"/>
+        <rect x="137" y="75" width="15" height="50" rx="5"/>
+        <rect x="157" y="65" width="12" height="70" rx="4"/>
+        <rect x="60" y="91" width="80" height="18" rx="6"/>
+    </g>
+
+    <text
+        x="100"
+        y="158"
+        text-anchor="middle"
+        font-family="Arial, sans-serif"
+        font-size="19"
+        font-weight="900"
+        fill="#ffffff">FITCART</text>
+</svg>
+            <div>
+                <div class="login-brand-name">FITCART</div>
+                <div class="login-brand-tagline">
+                    TRAIN HARD. SHOP SMART.
+                </div>
+            </div>
+        </a>
+    </header>
+
+    <main class="login-main">
+        <div class="login-layout">
+
+            <section class="login-showcase">
+                <div>
+                    <div class="login-eyebrow">
+                        YOUR TRAINING. YOUR RULES.
+                    </div>
+
+                    <h1>
+                        TRAIN HARD.
+                        <span>SHOP SMART.</span>
+                    </h1>
+
+                    <p class="login-showcase-description">
+                        Discover your training essentials, gear up for
+                        every rep, and take the next step toward your
+                        fitness goals.
+                    </p>
+                </div>
+
+                <div class="login-visual" aria-label="Fitness illustration">
+                    <div class="login-visual-ring"></div>
+
+                    <div class="login-athlete-card">
+                        <span class="login-athlete-icon" aria-hidden="true">
+                            🏋️
+                        </span>
+                        <span class="login-athlete-label">
+                            FITNESS ESSENTIALS
+                        </span>
+                    </div>
+
+                    <div class="login-floating-label">
+                        EQUIP YOUR<br>AMBITION
+                    </div>
+                </div>
+
+                <div>
+                    <div class="login-feature-row">
+                        <span class="login-feature">🏋️ Training Gear</span>
+                        <span class="login-feature">⚡ Performance</span>
+                        <span class="login-feature">💪 Recovery</span>
+                    </div>
+
+                    <div class="login-showcase-footer">
+                        BUILT FOR EVERY REP. EVERY GOAL.
+                    </div>
+                </div>
+            </section>
+
+            <section class="login-panel">
+                <div class="login-panel-kicker">
+                    MEMBER ACCESS
+                </div>
+
+                <h2>Welcome back.</h2>
+
+                <p class="login-subtitle">
+                    Ready for your next personal best?
+                    Sign in to continue to your FitCart account.
+                </p>
+
+                <div class="login-divider"></div>
+
+                <div id="message"
+                     class="login-message"
+                     role="alert"
+                     aria-live="polite"></div>
+
+                <form id="loginForm" method="post" action="/login">
+                    <input type="hidden" name="_csrf" id="csrfToken">
+
+                    <div class="login-form-group">
+                        <label for="email">Email address</label>
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="you@example.com"
+                            autocomplete="username"
+                            autocapitalize="none"
+                            spellcheck="false"
+                            required>
+                    </div>
+
+                    <div class="login-form-group">
+                        <label for="password">Password</label>
+
+                        <div class="login-input-wrap">
+                            <input
+                                type="password"
+                                id="password"
+                                name="password"
+                                class="login-password-input"
+                                placeholder="Enter your password"
+                                autocomplete="current-password"
+                                required>
+
+                            <button
+                                type="button"
+                                id="passwordToggle"
+                                class="login-password-toggle"
+                                aria-label="Show password"
+                                aria-pressed="false">
+                                SHOW
+                            </button>
+                        </div>
+                    </div>
+
+                    <button class="login-button"
+                            type="submit"
+                            id="loginButton"
+                            disabled>
+                        <span id="loginButtonText">Preparing secure sign-in...</span>
+                        <span class="login-button-arrow" aria-hidden="true">→</span>
+                    </button>
+                </form>
+
+                <div class="login-security-note">
+                    <span aria-hidden="true">●</span>
+                    <span>
+                        Secure sign-in · Your account and shopping
+                        experience in one place
+                    </span>
+                </div>
+
+                <div class="login-bottom">
+                    <strong>FITCART</strong> · TRAIN HARD. SHOP SMART.<br>
+                    Your fitness essentials, all in one place.
+                </div>
+            </section>
+
+        </div>
+    </main>
 
     <script>
         document.addEventListener("DOMContentLoaded", async () => {
             const message = document.getElementById("message");
             const button = document.getElementById("loginButton");
+            const buttonText = document.getElementById("loginButtonText");
+            const csrfInput = document.getElementById("csrfToken");
+            const passwordInput = document.getElementById("password");
+            const passwordToggle = document.getElementById("passwordToggle");
             const params = new URLSearchParams(window.location.search);
 
-            if (params.has("error")) {
-                message.className = "message error";
-                message.textContent =
-                    "Login failed. Check your email and password.";
-            } else if (params.has("logout")) {
-                message.className = "message success";
-                message.textContent = "You have been logged out.";
+            function showMessage(type, text) {
+                message.className = "login-message " + type;
+                message.textContent = text;
             }
+
+            if (params.has("error")) {
+                showMessage(
+                    "error",
+                    "Login failed. Please check your email and password and try again."
+                );
+            } else if (params.has("logout")) {
+                showMessage("success", "You have been logged out successfully.");
+            }
+
+            passwordToggle.addEventListener("click", () => {
+                const isPassword = passwordInput.type === "password";
+
+                passwordInput.type = isPassword ? "text" : "password";
+                passwordToggle.textContent = isPassword ? "HIDE" : "SHOW";
+                passwordToggle.setAttribute("aria-pressed", String(isPassword));
+                passwordToggle.setAttribute(
+                    "aria-label",
+                    isPassword ? "Hide password" : "Show password"
+                );
+            });
 
             try {
                 const response = await fetch("/csrf", {
-                    credentials: "same-origin"
+                    method: "GET",
+                    credentials: "same-origin",
+                    cache: "no-store"
                 });
 
                 if (!response.ok) {
@@ -289,14 +819,24 @@
 
                 const data = await response.json();
 
-                document.getElementById("csrfToken").value = data.token;
+                if (!data.token) {
+                    throw new Error("Missing CSRF token");
+                }
+
+                csrfInput.value = data.token;
+                button.disabled = false;
+                buttonText.textContent = "Sign In to FitCart";
             } catch (error) {
+                console.error("Login initialization failed:", error);
+                showMessage(
+                    "error",
+                    "Secure login could not be initialized. Please refresh the page. If the problem continues, restart FitCart."
+                );
                 button.disabled = true;
-                message.className = "message error";
-                message.textContent =
-                    "Unable to initialize secure login. Please refresh the page.";
+                buttonText.textContent = "Sign-in unavailable";
             }
         });
     </script>
+
 </body>
 </html>

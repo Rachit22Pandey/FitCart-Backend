@@ -4,66 +4,489 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FitCart — Fitness Marketplace</title>
+  <meta name="theme-color" content="#0b0e0b">
+  <meta name="description" content="FitCart — fitness equipment and training essentials for every goal.">
+  <title>FitCart — Train Hard. Shop Smart.</title>
   <link rel="stylesheet" href="style.css">
+
+  <style>
+    :root {
+      --primary: #c8f169;
+      --primary-hover: #b5e34f;
+      --accent: #c8f169;
+      --bg-dark: #0b0e0b;
+      --bg-card: #151a15;
+      --bg-card-hover: #202820;
+      --text-main: #f4f7f0;
+      --text-muted: #a1aba0;
+      --border: #303930;
+      --danger: #fb7185;
+      --radius: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      background:
+        radial-gradient(ellipse at 50% 0%, rgba(61, 83, 41, .22), transparent 45%),
+        var(--bg-dark);
+      color: var(--text-main);
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .announcement-bar {
+      padding: 8px 16px;
+      text-align: center;
+      background: var(--primary);
+      color: #11160c;
+      font-size: .72rem;
+      font-weight: 900;
+      letter-spacing: 1.5px;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 14px 24px;
+      background: rgba(11, 14, 11, .94);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(14px);
+    }
+
+    .header-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 11px;
+      flex-shrink: 0;
+      color: var(--text-main);
+      text-decoration: none;
+    }
+
+    .brand-mark {
+      display: block;
+      width: 48px;
+      height: 48px;
+      flex: 0 0 48px;
+      border-radius: 13px;
+      box-shadow: 0 5px 22px rgba(200, 241, 105, .08);
+    }
+
+    .brand-wordmark {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-size: 1.17rem;
+      font-weight: 950;
+      letter-spacing: 1.4px;
+      line-height: 1;
+      color: var(--text-main);
+    }
+
+    .brand-tagline {
+      font-size: .58rem;
+      font-weight: 800;
+      letter-spacing: 1.4px;
+      color: var(--primary);
+    }
+
+    .account-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    #currentUserName {
+      color: var(--text-main);
+    }
+
+    #currentUserEmail {
+      color: var(--text-muted) !important;
+      overflow-wrap: anywhere;
+    }
+
+    .btn {
+      border-radius: 999px;
+      padding: 10px 16px;
+      font-weight: 800;
+      transition:
+        transform .2s ease,
+        background .2s ease,
+        border-color .2s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #10140d;
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-hover);
+    }
+
+    .btn-secondary {
+      background: #151a15;
+      color: var(--text-main);
+      border: 1px solid var(--border);
+    }
+
+    .btn-secondary:hover {
+      background: var(--bg-card-hover);
+      border-color: #59664f;
+    }
+
+    .badge {
+      background: var(--primary);
+      color: #10140d;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .tabs {
+      max-width: 1280px;
+      margin: 18px auto 0;
+      padding: 0 24px;
+      gap: 8px;
+      border-bottom-color: var(--border);
+      overflow-x: auto;
+    }
+
+    .tab-btn {
+      white-space: nowrap;
+      border-bottom-width: 3px;
+      color: var(--text-muted);
+      font-size: .9rem;
+    }
+
+    .tab-btn.active {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+    }
+
+    main {
+      width: 100%;
+      max-width: 1280px;
+      margin: 30px auto;
+      padding: 0 24px;
+    }
+
+    .form-card,
+    .product-card,
+    .modal-content,
+    .order-card,
+    .admin-card {
+      border-color: var(--border);
+      border-radius: 18px;
+      box-shadow: 0 16px 38px rgba(0, 0, 0, .13);
+    }
+
+    .product-card {
+      background: var(--bg-card);
+    }
+
+    .product-card:hover {
+      border-color: #8eae54;
+    }
+
+    .product-category {
+      color: var(--primary);
+    }
+
+    .product-price {
+      color: var(--text-main);
+    }
+
+    .in-stock {
+      color: var(--primary);
+    }
+
+    input,
+    select,
+    textarea {
+      accent-color: var(--primary);
+    }
+
+    .site-footer {
+      margin-top: auto;
+      border-top: 1px solid var(--border);
+      background: #080b08;
+    }
+
+    .footer-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 28px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .footer-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 950;
+      letter-spacing: 1.4px;
+      text-decoration: none;
+    }
+
+    .footer-brand svg {
+      width: 35px;
+      height: 35px;
+    }
+
+    .footer-brand span {
+      color: var(--text-main);
+    }
+
+    .footer-copy,
+    .footer-note {
+      color: var(--text-muted);
+      font-size: .82rem;
+    }
+
+    .modal {
+      z-index: 200;
+    }
+
+    .modal-content {
+      background: #121712;
+      border: 1px solid var(--border);
+    }
+
+    .modal-header {
+      border-bottom-color: var(--border);
+    }
+
+    .modal-close {
+      color: var(--text-muted);
+    }
+
+    #notification {
+      z-index: 300;
+    }
+
+    @media (max-width: 900px) {
+      .header-container {
+        justify-content: center;
+      }
+
+      .account-info {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .nav-actions {
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .announcement-bar {
+        font-size: .62rem;
+        letter-spacing: .8px;
+      }
+
+      header {
+        padding: 12px 14px;
+      }
+
+      .brand-mark {
+        width: 42px;
+        height: 42px;
+        flex-basis: 42px;
+      }
+
+      .brand-wordmark {
+        font-size: 1rem;
+      }
+
+      .brand-tagline {
+        font-size: .5rem;
+        letter-spacing: .9px;
+      }
+
+      .account-info {
+        width: 100%;
+      }
+
+      .nav-actions {
+        width: 100%;
+      }
+
+      .nav-actions .btn {
+        flex: 1;
+        justify-content: center;
+      }
+
+      .tabs {
+        padding: 0 14px;
+      }
+
+      main {
+        margin: 22px auto;
+        padding: 0 14px;
+      }
+
+      .footer-inner {
+        padding: 24px 16px;
+        justify-content: center;
+        text-align: center;
+      }
+    }
+  </style>
 </head>
+
 <body>
+
+  <div class="announcement-bar">
+    EQUIP YOUR AMBITION · TRAIN HARD · SHOP SMART
+  </div>
 
   <!-- Header -->
   <header>
     <div class="header-container">
 
-      <a href="/" class="brand">
-        ⚡ FitCart <span>Fitness</span>
+      <a href="/" class="brand" aria-label="FitCart home">
+
+        <!-- Inline gym logo: no separate image file required -->
+        <svg class="brand-mark"
+             viewBox="0 0 200 200"
+             role="img"
+             aria-label="FitCart dumbbell logo"
+             xmlns="http://www.w3.org/2000/svg">
+
+          <rect width="200" height="200" rx="42" fill="#101410"/>
+
+          <g fill="#c8f169">
+            <rect x="48" y="75" width="15" height="50" rx="5"/>
+            <rect x="31" y="65" width="12" height="70" rx="4"/>
+            <rect x="137" y="75" width="15" height="50" rx="5"/>
+            <rect x="157" y="65" width="12" height="70" rx="4"/>
+            <rect x="60" y="91" width="80" height="18" rx="6"/>
+          </g>
+
+          <text x="100"
+                y="158"
+                text-anchor="middle"
+                font-family="Arial, sans-serif"
+                font-size="19"
+                font-weight="900"
+                fill="#ffffff">FITCART</text>
+        </svg>
+
+        <span class="brand-wordmark">
+          FITCART
+          <span class="brand-tagline">TRAIN HARD. SHOP SMART.</span>
+        </span>
       </a>
 
-      <!-- Authenticated Account Information -->
+      <!-- Authenticated account information -->
       <div class="account-info">
         <div>
           <strong id="currentUserName">Loading...</strong>
+
           <div id="currentUserEmail"
-               style="font-size:0.8rem;color:var(--text-muted)">
+               style="font-size:.8rem;color:var(--text-muted)">
           </div>
         </div>
 
         <span id="currentUserRole" class="badge">...</span>
 
-        <button class="btn btn-secondary" onclick="logout()">
+        <button type="button"
+                class="btn btn-secondary"
+                onclick="logout()">
           Log Out
         </button>
       </div>
 
-      <!-- Buyer Shopping Actions -->
+      <!-- Buyer shopping actions -->
       <div class="nav-actions">
-        <button class="btn btn-secondary" onclick="openWishlistModal()">
-          ♥ Wishlist
+
+        <button type="button"
+                class="btn btn-secondary"
+                onclick="openWishlistModal()">
+          <span aria-hidden="true">♡</span>
+          Wishlist
           <span id="wishlistCount" class="badge">0</span>
         </button>
 
-        <button class="btn btn-primary" onclick="openCartModal()">
-          🛒 Cart
+        <button type="button"
+                class="btn btn-primary"
+                onclick="openCartModal()">
+          <span aria-hidden="true">🛒</span>
+          Cart
           <span id="cartCount" class="badge">0</span>
         </button>
-      </div>
 
+      </div>
     </div>
   </header>
 
-  <!-- Navigation Tabs: Rendered by app.js according to the logged-in role -->
-  <div class="tabs" id="roleTabs"></div>
+  <!-- Navigation tabs are generated by app.js -->
+  <nav class="tabs"
+       id="roleTabs"
+       aria-label="FitCart dashboard navigation">
+  </nav>
 
-  <!-- Main Dashboard Content -->
-  <main id="mainContent">
-    <p>Loading FitCart...</p>
+  <!-- Main content is generated by app.js -->
+  <main id="mainContent" aria-live="polite">
+    <section class="form-card"
+             style="max-width:700px;margin:2rem auto;padding:2rem">
+
+      <h1>Loading FitCart...</h1>
+
+      <p style="margin-top:.75rem;color:var(--text-muted)">
+        Preparing your fitness shopping experience.
+      </p>
+
+    </section>
   </main>
 
   <!-- Cart Modal -->
-  <div class="modal" id="cartModal">
+  <div class="modal"
+       id="cartModal"
+       role="dialog"
+       aria-modal="true"
+       aria-labelledby="cartModalTitle">
+
     <div class="modal-content">
 
       <div class="modal-header">
-        <h2>Your Shopping Cart</h2>
-        <button class="modal-close" onclick="closeCartModal()">
+        <h2 id="cartModalTitle">Your Shopping Cart</h2>
+
+        <button type="button"
+                class="modal-close"
+                onclick="closeCartModal()"
+                aria-label="Close cart">
           &times;
         </button>
       </div>
@@ -75,27 +498,41 @@
 
         <h3>Total: ₹<span id="cartTotal">0.00</span></h3>
 
-        <div style="margin-top:1rem;display:flex;justify-content:flex-end;gap:1rem">
-          <button class="btn btn-secondary" onclick="clearUserCart()">
+        <div style="margin-top:1rem;display:flex;justify-content:flex-end;gap:1rem;flex-wrap:wrap">
+
+          <button type="button"
+                  class="btn btn-secondary"
+                  onclick="clearUserCart()">
             Clear Cart
           </button>
 
-          <button class="btn btn-primary" onclick="openCheckoutModal()">
+          <button type="button"
+                  class="btn btn-primary"
+                  onclick="openCheckoutModal()">
             Proceed to Checkout
           </button>
-        </div>
 
+        </div>
       </div>
     </div>
   </div>
 
   <!-- Wishlist Modal -->
-  <div class="modal" id="wishlistModal">
+  <div class="modal"
+       id="wishlistModal"
+       role="dialog"
+       aria-modal="true"
+       aria-labelledby="wishlistModalTitle">
+
     <div class="modal-content">
 
       <div class="modal-header">
-        <h2>Your Wishlist</h2>
-        <button class="modal-close" onclick="closeWishlistModal()">
+        <h2 id="wishlistModalTitle">Your Wishlist</h2>
+
+        <button type="button"
+                class="modal-close"
+                onclick="closeWishlistModal()"
+                aria-label="Close wishlist">
           &times;
         </button>
       </div>
@@ -105,18 +542,30 @@
     </div>
   </div>
 
-  <!-- Checkout Modal -->
-  <div class="modal" id="checkoutModal">
+  <!-- Checkout Modal: demonstration payments only -->
+  <div class="modal"
+       id="checkoutModal"
+       role="dialog"
+       aria-modal="true"
+       aria-labelledby="checkoutModalTitle">
+
     <div class="modal-content">
 
       <div class="modal-header">
-        <h2>Checkout &amp; Demonstration Payment</h2>
-        <button class="modal-close" onclick="closeCheckoutModal()">
+        <h2 id="checkoutModalTitle">
+          Checkout &amp; Demonstration Payment
+        </h2>
+
+        <button type="button"
+                class="modal-close"
+                onclick="closeCheckoutModal()"
+                aria-label="Close checkout">
           &times;
         </button>
       </div>
 
       <div class="form-group">
+
         <label for="checkoutPaymentMethod">
           Payment Method (Simulated)
         </label>
@@ -127,28 +576,79 @@
           <option value="COD">Cash on Delivery (Demo)</option>
         </select>
 
-        <p style="font-size:0.75rem;color:var(--accent);margin-top:0.3rem">
+        <p style="font-size:.75rem;color:var(--primary);margin-top:.3rem">
           Real payments are disabled. Orders use simulated demo transactions.
         </p>
       </div>
 
-      <div style="margin-top:1.5rem;display:flex;justify-content:flex-end;gap:1rem">
-        <button class="btn btn-secondary" onclick="closeCheckoutModal()">
+      <div style="margin-top:1.5rem;display:flex;justify-content:flex-end;gap:1rem;flex-wrap:wrap">
+
+        <button type="button"
+                class="btn btn-secondary"
+                onclick="closeCheckoutModal()">
           Cancel
         </button>
 
-        <button class="btn btn-primary" onclick="confirmOrderCheckout()">
+        <button type="button"
+                class="btn btn-primary"
+                onclick="confirmOrderCheckout()">
           Confirm Order
         </button>
-      </div>
 
+      </div>
     </div>
   </div>
 
-  <!-- Notification Toast -->
-  <div id="notification">Notification message</div>
+  <!-- Toast notification -->
+  <div id="notification" role="status" aria-live="polite">
+    Notification message
+  </div>
 
-  <!-- Main JavaScript -->
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+
+      <a href="/" class="footer-brand" aria-label="FitCart home">
+
+        <svg viewBox="0 0 200 200"
+             role="img"
+             aria-label="FitCart dumbbell logo"
+             xmlns="http://www.w3.org/2000/svg">
+
+          <rect width="200" height="200" rx="42" fill="#101410"/>
+
+          <g fill="#c8f169">
+            <rect x="48" y="75" width="15" height="50" rx="5"/>
+            <rect x="31" y="65" width="12" height="70" rx="4"/>
+            <rect x="137" y="75" width="15" height="50" rx="5"/>
+            <rect x="157" y="65" width="12" height="70" rx="4"/>
+            <rect x="60" y="91" width="80" height="18" rx="6"/>
+          </g>
+
+          <text x="100"
+                y="158"
+                text-anchor="middle"
+                font-family="Arial, sans-serif"
+                font-size="19"
+                font-weight="900"
+                fill="#ffffff">FITCART</text>
+        </svg>
+
+        <span>FITCART</span>
+      </a>
+
+      <p class="footer-copy">
+        Your fitness journey. Your gear. Your goals.
+      </p>
+
+      <p class="footer-note">
+        © 2026 FitCart · Built for every rep.
+      </p>
+
+    </div>
+  </footer>
+
+  <!-- Existing JavaScript: authentication, products, cart, and checkout -->
   <script src="app.js"></script>
 
 </body>
